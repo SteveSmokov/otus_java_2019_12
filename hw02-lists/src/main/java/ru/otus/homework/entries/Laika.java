@@ -1,22 +1,22 @@
 package ru.otus.homework.entries;
 
-public class Laika extends Dog {
-    private String name;
+import java.util.Comparator;
 
+public class Laika extends Dog {
     public Laika(String name) {
-        this.name = name;
+        this.setName(name);
     }
 
     @Override
     public String toString() {
-        return "Laika, name='" + name + '\'';
+        return "Laika, name='" + this.getName() + '\'';
     }
 
-    public String getName() {
-        return name;
-    }
+    public static class SortByNames implements Comparator<Dog> {
 
-    public void setName(String name) {
-        this.name = name;
+        public int compare(Dog dog1, Dog dog2) {
+            return dog1.getName().compareTo(dog2.getName());
+        }
+
     }
 }
