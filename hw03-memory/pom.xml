@@ -29,7 +29,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.otus.GCMainClass</mainClass>
+                            <mainClass>ru.otus.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -58,21 +58,22 @@
                 <configuration>
                     <executable>java</executable>
                     <arguments>
-                        <argument>-Xms512m</argument>
-                        <argument>-Xmx512m</argument>
-                        <argument>-Xlog:gc=debug:file=./logs/gc-%p-%t.log:tags,uptime,time,level:filecount=5,filesize=10m</argument>
-                        <argument>-XX:+UseG1GC</argument>
-<!--                        <argument>-XX:+UseParNewGC</argument>-->
-<!--                        <argument>-XX:+UseParallelGC</argument>-->
-<!--                        <argument>-XX:+UseSerialGC</argument>-->
-                        <argument>-XX:NewRatio=3</argument>
-                        <argument>-XX:+HeapDumpOnOutOfMemoryError</argument>
-                        <argument>-XX:+PrintGCTimeStamps</argument>
-                        <argument>-XX:+PrintGCDetails</argument>
-                        <argument>-XX:HeapDumpPath=./logs/dump</argument>
+                        <!--<argument>-Xms32m</argument>-->
+                        <!--<argument>-Xmx32m</argument>-->
+                        <!--<argument>-Xlog:gc=debug:file=./logs/gc-%p-%t.log:tags,uptime,time,level:filecount=5,filesize=10m</argument>-->
+                        <!--<argument>-XX:+UseG1GC</argument>-->
+                        <!--<argument>-XX:+UseParNewGC</argument>-->
+                        <!--<argument>-XX:+UseParallelGC</argument>-->
+                        <!--<argument>-XX:+UseSerialGC</argument>-->
+                        <!--<argument>-XX:NewRatio=3</argument>-->
+                        <!--<argument>-XX:+HeapDumpOnOutOfMemoryError</argument>-->
+                        <!--<argument>-XX:+PrintGCTimeStamps</argument>-->
+                        <!--<argument>-XX:+PrintGCDetails</argument>-->
+                        <!--<argument>-XX:HeapDumpPath=./logs/dump</argument>-->
+                        <!--<argument>&#45;&#45;XX:HeapDumpPath=./hw03-memory/logs/dump</argument>-->
 <!--                        <argument>-Xloggc:gc.log</argument>-->
-                        <argument>-classpath</argument>
-                        <classpath/>
+                        <!--<argument>-classpath</argument>-->
+                        <!--<classpath/>-->
                         <argument>ru.otus.Main</argument>
                     </arguments>
                 </configuration>

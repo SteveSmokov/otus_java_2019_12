@@ -4,6 +4,7 @@
 
 # Log file
 *.log
+!/hw03-memory/logs/*.log
 
 # BlueJ files
 *.ctxt

@@ -7,14 +7,34 @@ import javax.management.NotificationListener;
 import javax.management.openmbean.CompositeData;
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    private static final int ARRAY_LIST_SIZE = 1_000_000;
+
+    public static void main(String[] args) throws InterruptedException {
+        long startTime = (new Date()).getTime();
         System.out.println("Start process ID=" + ManagementFactory.getRuntimeMXBean().getName());
         switchOnMonitoring();
+        Runtime runtime = Runtime.getRuntime();
+        System.out.println("Total memory before: " + runtime.totalMemory());
+        System.out.println("Free memory before: " + runtime.freeMemory());
+        List<Object> objectsList  = new ArrayList<>();
+        try {
+            while (true) {
+                objectsList.addAll(Collections.nCopies(ARRAY_LIST_SIZE, new Object()));
+                objectsList.subList(0, ARRAY_LIST_SIZE >> 2).clear();
+                Thread.sleep(100);
+            }
+        } catch (OutOfMemoryError E) {
+            long sec = ((new Date()).getTime() - startTime) / 1000;
+            System.out.println("Продолжительность работы приложения - "+sec+" sec.");
+            System.exit(0);
+        }
 
-        System.out.println("Stop process!");
     }
 
     private static void switchOnMonitoring() {
