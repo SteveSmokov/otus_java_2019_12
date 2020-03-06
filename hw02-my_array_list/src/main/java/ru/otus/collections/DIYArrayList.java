@@ -1,11 +1,13 @@
 package ru.otus.collections;
 
 import java.util.*;
-import java.util.function.Consumer;
+
 
 public class DIYArrayList<E> implements List<E> {
-    private int arraySize = 0;
+    private static final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
     private static final int DEFAULT_ARRAY_SIZE = 10;
+
+    private int arraySize = 0;
     transient Object[] array;
     private static final Object[] EMPTY_ELEMENTDATA = {};
 
@@ -23,8 +25,7 @@ public class DIYArrayList<E> implements List<E> {
     }
 
     public DIYArrayList() {
-        this.arraySize = DEFAULT_ARRAY_SIZE;
-        this.array = new Object[DEFAULT_ARRAY_SIZE];
+        this.array = EMPTY_ELEMENTDATA;
     }
 
     public DIYArrayList(int size) {
@@ -74,10 +75,46 @@ public class DIYArrayList<E> implements List<E> {
         return a;
     }
 
+    private static int hugeLength(int oldLength, int minGrowth) {
+        int minLength = oldLength + minGrowth;
+        if (minLength < 0) { // overflow
+            throw new OutOfMemoryError("Required array length too large");
+        }
+        if (minLength <= MAX_ARRAY_LENGTH) {
+            return MAX_ARRAY_LENGTH;
+        }
+        return Integer.MAX_VALUE;
+    }
+
+    private static int newLength(int oldLength, int minGrowth, int prefGrowth) {
+        // assert oldLength >= 0
+        // assert minGrowth > 0
+
+        int newLength = Math.max(minGrowth, prefGrowth) + oldLength;
+        if (newLength - MAX_ARRAY_LENGTH <= 0) {
+            return newLength;
+        }
+        return hugeLength(oldLength, minGrowth);
+    }
+
+    private void grow(int minCapacity) {
+        int oldArraySize = this.array.length;
+        if (oldArraySize > 0 || this.array != EMPTY_ELEMENTDATA) {
+            int newArraySize = newLength(oldArraySize,
+                    minCapacity - oldArraySize,
+                    oldArraySize >> 1);
+            this.array = Arrays.copyOf(this.array,newArraySize);
+        } else {
+            this.array = new Object[Math.max(DEFAULT_ARRAY_SIZE, minCapacity)];
+        }
+    }
+
     @Override
     public boolean add(E e) {
         Boolean result = false;
-        resizeArray(this.arraySize+1);
+        this.modCount++;
+        if (this.arraySize == this.array.length)
+            grow(this.arraySize + 1);
         this.array[this.arraySize] = e;
         this.arraySize++;
         result = true;
