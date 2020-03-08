@@ -227,11 +227,17 @@ public class DIYArrayList<E> implements List<E> {
     }
 
     private void resizeArray(int length){
-        Object[] newArray = new Object[length];
-        if (this.arraySize>0) {
-            System.arraycopy(this.array, 0, newArray, 0, this.arraySize);
+        if (length > 0) {
+            Object[] newArray = new Object[length];
+            if (this.arraySize>0) {
+                System.arraycopy(this.array, 0, newArray, 0, length);
+            }
+            this.array = newArray;
+        } else if (length == 0) {
+            this.array = EMPTY_ELEMENTDATA;
+        } else {
+            throw new IllegalArgumentException("Не правильное значение для размера массива");
         }
-        this.array = newArray;
     }
 
     @Override
