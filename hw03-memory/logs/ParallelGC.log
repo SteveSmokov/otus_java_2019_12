@@ -1,0 +1,12 @@
+[2020-03-02T14:34:17.591+0200][0.069s][info][gc] Using Parallel
+[2020-03-02T14:34:38.287+0200][20.764s][info][gc] GC(0) Pause Young (Allocation Failure) 1747M->390M(7851M) 616.019ms
+[2020-03-02T14:35:15.582+0200][58.058s][info][gc] GC(1) Pause Young (Allocation Failure) 2438M->1252M(7851M) 1702.460ms
+[2020-03-02T14:36:28.791+0200][131.265s][info][gc] GC(2) Pause Young (Allocation Failure) 5247M->3201M(7851M) 10731.816ms
+[2020-03-02T14:38:09.459+0200][231.928s][info][gc] GC(3) Pause Young (Allocation Failure) 4033M->3205M(7851M) 7008.049ms
+[2020-03-02T14:38:21.444+0200][243.913s][info][gc] GC(4) Pause Young (Allocation Failure) 3205M->3205M(7851M) 11984.778ms
+[2020-03-02T14:38:29.731+0200][252.200s][debug][gc] GC(5) Shrinking ParOldGen from 5592576K by 662016K to 4930560K
+[2020-03-02T14:38:29.732+0200][252.200s][info ][gc] GC(5) Pause Full (Allocation Failure) 3205M->1954M(7537M) 8287.096ms
+[2020-03-02T14:38:29.734+0200][252.203s][debug][gc] Expanding ParOldGen from 4930560K by 662016K to 5592576K
+[2020-03-02T14:42:12.827+0200][475.287s][info ][gc] GC(6) Pause Full (Ergonomics) 6434M->2929M(8184M) 10377.747ms
+[2020-03-02T14:42:12.841+0200][475.301s][info ][gc] GC(7) Pause Young (Allocation Failure) 2929M->2929M(8184M) 13.659ms
+[2020-03-02T14:42:23.703+0200][486.162s][info ][gc] GC(8) Pause Full (Allocation Failure) 2929M->2929M(8184M) 10861.601ms

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>otus_java_2019_12</artifactId>
+        <groupId>ru.otus</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.otus</groupId>
+    <artifactId>hw03-memory</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptionRef>jar-with-dependencies</descriptionRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.otus.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>13</source>
+                    <target>13</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <!--<argument>-Xms32m</argument>-->
+                        <!--<argument>-Xmx32m</argument>-->
+                        <!--<argument>-Xlog:gc=debug:file=./logs/gc-%p-%t.log:tags,uptime,time,level:filecount=5,filesize=10m</argument>-->
+                        <!--<argument>-XX:+UseG1GC</argument>-->
+                        <!--<argument>-XX:+UseParNewGC</argument>-->
+                        <!--<argument>-XX:+UseParallelGC</argument>-->
+                        <!--<argument>-XX:+UseSerialGC</argument>-->
+                        <!--<argument>-XX:NewRatio=3</argument>-->
+                        <!--<argument>-XX:+HeapDumpOnOutOfMemoryError</argument>-->
+                        <!--<argument>-XX:+PrintGCTimeStamps</argument>-->
+                        <!--<argument>-XX:+PrintGCDetails</argument>-->
+                        <!--<argument>-XX:HeapDumpPath=./logs/dump</argument>-->
+                        <!--<argument>&#45;&#45;XX:HeapDumpPath=./hw03-memory/logs/dump</argument>-->
+<!--                        <argument>-Xloggc:gc.log</argument>-->
+                        <!--<argument>-classpath</argument>-->
+                        <!--<classpath/>-->
+                        <argument>ru.otus.Main</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

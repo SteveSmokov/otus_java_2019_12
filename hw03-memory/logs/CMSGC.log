@@ -1,0 +1,74 @@
+[2020-03-02T11:46:04.245+0200][0.063s][debug][gc] ConcGCThreads: 0
+[2020-03-02T11:46:04.245+0200][0.063s][debug][gc] ParallelGCThreads: 4
+[2020-03-02T11:46:04.245+0200][0.064s][info ][gc] Using Concurrent Mark Sweep
+[2020-03-02T11:46:06.608+0200][2.426s][info ][gc] GC(0) Pause Young (Allocation Failure) 221M->55M(8158M) 166.066ms
+[2020-03-02T11:46:09.004+0200][4.823s][info ][gc] GC(1) Pause Young (Allocation Failure) 321M->166M(8158M) 326.458ms
+[2020-03-02T11:46:12.543+0200][8.362s][info ][gc] GC(2) Pause Young (Allocation Failure) 429M->338M(8158M) 505.817ms
+[2020-03-02T11:46:13.135+0200][8.954s][info ][gc] GC(3) Pause Young (Allocation Failure) 354M->342M(8158M) 316.053ms
+[2020-03-02T11:46:14.276+0200][10.095s][info ][gc] GC(4) Pause Young (Allocation Failure) 605M->594M(8158M) 783.522ms
+[2020-03-02T11:46:25.958+0200][21.777s][info ][gc] GC(5) Pause Young (Allocation Failure) 1245M->980M(8158M) 836.224ms
+[2020-03-02T11:46:41.949+0200][37.768s][info ][gc] GC(6) Pause Young (Allocation Failure) 1822M->1558M(8158M) 1329.627ms
+[2020-03-02T11:47:00.406+0200][56.224s][info ][gc] GC(7) Pause Young (Allocation Failure) 2688M->2424M(8158M) 1901.935ms
+[2020-03-02T11:47:22.264+0200][78.082s][info ][gc] GC(8) Pause Young (Allocation Failure) 3989M->3723M(8158M) 2463.371ms
+[2020-03-02T11:47:46.318+0200][102.136s][info ][gc] GC(9) Pause Young (Allocation Failure) 3989M->3723M(8158M) 2419.795ms
+[2020-03-02T11:48:08.370+0200][124.187s][info ][gc] GC(10) Pause Initial Mark 5904M->5904M(8158M) 51.051ms
+[2020-03-02T11:48:08.370+0200][124.188s][info ][gc] GC(10) Concurrent Mark
+[2020-03-02T11:48:09.949+0200][125.767s][debug][gc] GC(10) Concurrent active time: 1579.141ms
+[2020-03-02T11:48:09.949+0200][125.767s][info ][gc] GC(10) Concurrent Mark 1579.326ms
+[2020-03-02T11:48:09.949+0200][125.767s][info ][gc] GC(10) Concurrent Preclean
+[2020-03-02T11:48:11.366+0200][127.183s][debug][gc] GC(10) Concurrent active time: 1217.642ms
+[2020-03-02T11:48:11.366+0200][127.183s][info ][gc] GC(10) Concurrent Preclean 1416.437ms
+[2020-03-02T11:48:11.366+0200][127.183s][info ][gc] GC(10) Concurrent Abortable Preclean
+[2020-03-02T11:48:15.996+0200][131.814s][info ][gc] GC(11) Pause Young (Allocation Failure) 5935M->5672M(8158M) 3485.617ms
+[2020-03-02T11:48:18.459+0200][134.277s][debug][gc] GC(10)  CMS: abort preclean due to time 
+[2020-03-02T11:48:18.459+0200][134.277s][debug][gc] GC(10) Concurrent active time: 3607.045ms
+[2020-03-02T11:48:18.459+0200][134.277s][info ][gc] GC(10) Concurrent Abortable Preclean 7093.518ms
+[2020-03-02T11:48:18.714+0200][134.532s][debug][gc] GC(10) YG occupancy: 31965 K (306688 K)
+[2020-03-02T11:48:19.060+0200][134.878s][info ][gc] GC(10) Pause Remark 5701M->5701M(8158M) 346.774ms
+[2020-03-02T11:48:19.061+0200][134.879s][info ][gc] GC(10) Concurrent Sweep
+[2020-03-02T11:48:19.063+0200][134.881s][debug][gc] GC(10) Concurrent active time: 1.384ms
+[2020-03-02T11:48:19.063+0200][134.881s][info ][gc] GC(10) Concurrent Sweep 1.491ms
+[2020-03-02T11:48:19.063+0200][134.881s][info ][gc] GC(10) Concurrent Reset
+[2020-03-02T11:48:19.075+0200][134.893s][debug][gc] GC(10) Concurrent active time: 12.194ms
+[2020-03-02T11:48:19.075+0200][134.893s][info ][gc] GC(10) Concurrent Reset 12.621ms
+[2020-03-02T11:48:44.453+0200][160.271s][info ][gc] GC(12) Pause Young (Allocation Failure) 2216M->1952M(8158M) 1337.385ms
+[2020-03-02T11:49:15.543+0200][191.361s][info ][gc] GC(13) Pause Young (Allocation Failure) 2217M->1952M(8158M) 1415.224ms
+[2020-03-02T11:49:49.064+0200][224.882s][info ][gc] GC(14) Pause Young (Allocation Failure) 2215M->1951M(8158M) 1469.235ms
+[2020-03-02T11:49:59.449+0200][235.266s][info ][gc] GC(15) Pause Young (Allocation Failure) 2027M->1955M(8158M) 1380.451ms
+[2020-03-02T11:50:02.248+0200][238.066s][info ][gc] GC(16) Pause Full (Allocation Failure) 1955M->1955M(8158M) 2799.502ms
+[2020-03-02T11:50:39.618+0200][275.434s][info ][gc] GC(17) Pause Young (Allocation Failure) 5142M->4878M(8158M) 480.962ms
+[2020-03-02T11:51:18.863+0200][314.681s][info ][gc] GC(18) Pause Young (Allocation Failure) 5143M->4878M(8158M) 697.605ms
+[2020-03-02T11:52:00.980+0200][356.796s][info ][gc] GC(19) Pause Young (Allocation Failure) 5144M->4878M(8158M) 888.393ms
+[2020-03-02T11:52:46.471+0200][402.288s][info ][gc] GC(20) Pause Young (Allocation Failure) 5144M->4878M(8158M) 1128.347ms
+[2020-03-02T11:53:36.151+0200][451.968s][info ][gc] GC(21) Pause Young (Allocation Failure) 5144M->4878M(8158M) 1271.049ms
+[2020-03-02T11:53:41.233+0200][457.049s][info ][gc] GC(22) Pause Young (Allocation Failure) 4903M->4882M(8158M) 1359.468ms
+[2020-03-02T11:53:45.455+0200][461.271s][info ][gc] GC(23) Pause Full (Allocation Failure) 4882M->2929M(8158M) 4221.797ms
+[2020-03-02T11:53:47.963+0200][463.780s][info ][gc] GC(24) Pause Initial Mark 7321M->7321M(8158M) 0.388ms
+[2020-03-02T11:53:47.963+0200][463.780s][info ][gc] GC(24) Concurrent Mark
+[2020-03-02T11:53:52.084+0200][467.901s][debug][gc] GC(24) Concurrent active time: 4121.113ms
+[2020-03-02T11:53:52.084+0200][467.901s][info ][gc] GC(24) Concurrent Mark 4121.236ms
+[2020-03-02T11:53:52.084+0200][467.901s][info ][gc] GC(24) Concurrent Preclean
+[2020-03-02T11:53:55.303+0200][471.120s][debug][gc] GC(24) Concurrent active time: 3218.483ms
+[2020-03-02T11:53:55.303+0200][471.120s][info ][gc] GC(24) Concurrent Preclean 3218.586ms
+[2020-03-02T11:53:55.303+0200][471.120s][info ][gc] GC(24) Concurrent Abortable Preclean
+[2020-03-02T11:54:01.801+0200][477.618s][debug][gc] GC(24)  CMS: abort preclean due to time 
+[2020-03-02T11:54:01.801+0200][477.618s][debug][gc] GC(24) Concurrent active time: 6498.139ms
+[2020-03-02T11:54:01.801+0200][477.618s][info ][gc] GC(24) Concurrent Abortable Preclean 6498.178ms
+[2020-03-02T11:54:02.576+0200][478.392s][debug][gc] GC(24) YG occupancy: 71479 K (306688 K)
+[2020-03-02T11:54:03.453+0200][479.270s][info ][gc] GC(24) Pause Remark 7384M->7384M(8158M) 877.829ms
+[2020-03-02T11:54:03.456+0200][479.272s][info ][gc] GC(24) Concurrent Sweep
+[2020-03-02T11:54:03.458+0200][479.275s][debug][gc] GC(24) Concurrent active time: 2.179ms
+[2020-03-02T11:54:03.458+0200][479.275s][info ][gc] GC(24) Concurrent Sweep 2.305ms
+[2020-03-02T11:54:03.458+0200][479.275s][info ][gc] GC(24) Concurrent Reset
+[2020-03-02T11:54:03.469+0200][479.285s][debug][gc] GC(24) Concurrent active time: 10.493ms
+[2020-03-02T11:54:03.469+0200][479.285s][info ][gc] GC(24) Concurrent Reset 10.623ms
+[2020-03-02T11:54:41.321+0200][517.138s][info ][gc] GC(25) Pause Young (Allocation Failure) 4651M->4387M(8158M) 607.419ms
+[2020-03-02T11:55:36.754+0200][572.570s][info ][gc] GC(26) Pause Young (Allocation Failure) 4651M->4387M(8158M) 854.513ms
+[2020-03-02T11:56:36.445+0200][632.260s][info ][gc] GC(27) Pause Young (Allocation Failure) 4652M->4387M(8158M) 1053.138ms
+[2020-03-02T11:57:38.937+0200][694.752s][info ][gc] GC(28) Pause Young (Allocation Failure) 4652M->4387M(8158M) 1240.936ms
+[2020-03-02T11:58:45.166+0200][760.981s][info ][gc] GC(29) Pause Young (Allocation Failure) 4653M->4387M(8158M) 1461.121ms
+[2020-03-02T11:59:53.760+0200][829.575s][info ][gc] GC(30) Pause Young (Allocation Failure) 4653M->4387M(8158M) 1581.184ms
+[2020-03-02T12:01:04.607+0200][900.422s][info ][gc] GC(31) Pause Young (Allocation Failure) 4653M->4387M(8158M) 1713.372ms
+[2020-03-02T12:01:57.096+0200][952.910s][info ][gc] GC(32) Pause Young (Allocation Failure) 4588M->4391M(8158M) 1791.622ms
+[2020-03-02T12:02:03.642+0200][959.456s][info ][gc] GC(33) Pause Full (Allocation Failure) 4391M->4391M(8158M) 6546.838ms
+[2020-03-02T12:02:09.736+0200][965.549s][info ][gc] GC(34) Pause Full (Allocation Failure) 4391M->4391M(8158M) 6092.813ms
