@@ -18,6 +18,7 @@
     </developers>
     <modules>
         <module>hw01-maven</module>
+        <module>hw05-test_framework</module>
     </modules>
 
     <properties>
