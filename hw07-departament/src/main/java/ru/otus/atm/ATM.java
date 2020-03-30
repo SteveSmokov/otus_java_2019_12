@@ -48,6 +48,29 @@ public class ATM implements IATM {
         }
     }
 
+    private Boolean reverseCreateAmount(IAmount amaunt, int sum){
+        Boolean result = false;
+        Map<IBill, Integer> bal1 = new TreeMap<IBill, Integer>(Comparator.comparing(IBill::getCost));
+        amaunt.entrySet().stream()
+                .forEachOrdered(x -> bal1.put(x.getKey(), x.getValue()));
+        IBill minKey = balance.keySet().stream().min(Comparator.comparing(IBill::getCost)).get();
+        int count;
+        for(Map.Entry<IBill,Integer> e: bal1.entrySet()){
+            sum = sum + e.getKey().getCost() * e.getValue();
+            bal1.replace(e.getKey(), e.getValue(), 0);
+            count = sum / minKey.getCost();
+            if (((sum - count * minKey.getCost()) == 0) && (count<=balance.get(minKey))){
+                bal1.entrySet().removeIf(entry -> entry.getValue()==0);
+                amaunt.clear();
+                amaunt.putAll(bal1);
+                amaunt.addBill(minKey, count);
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
     @Override
     public IAmount getCash(int sum) throws NotEnoughMoneyException, NotBillException {
         if (sum > getBalance()){
@@ -67,7 +90,7 @@ public class ATM implements IATM {
                 }
             } else break;
         }
-        if (sum>0){
+        if (sum>0 && !reverseCreateAmount(amountIssued, sum)){
             amountIssued.clear();
             throw new NotBillException("Отсуствуют некоторые номиналы купюр!");
         } else getCasheATBalance(amountIssued);

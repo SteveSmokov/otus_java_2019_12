@@ -24,8 +24,15 @@ public class Amount implements IAmount {
         return money.entrySet();
     }
 
+    @Override
     public void clear(){
         money.clear();
+    }
+
+    @Override
+    public void putAll(Map<IBill, Integer> map) {
+        money.clear();
+        money.putAll(map);
     }
 
     @Override

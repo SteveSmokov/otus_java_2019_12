@@ -10,4 +10,5 @@ public interface IAmount {
     void addBill(IBill bill, int count);
     Set<Map.Entry<IBill, Integer>> entrySet();
     void clear();
+    void putAll(Map<IBill, Integer> map);
 }

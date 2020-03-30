@@ -31,7 +31,8 @@ public class Main {
         checkDepBalance();
 
         getMoneyFromATM(1, 400000);
-
+        checkDepBalance();
+        getMoneyFromATM(2, 400080);
         checkDepBalance();
 
         System.out.println();
