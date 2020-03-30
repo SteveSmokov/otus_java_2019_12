@@ -4,6 +4,7 @@ import ru.otus.amount.IAmount;
 import ru.otus.atm.ATM;
 import ru.otus.atm.IATM;
 import ru.otus.bill.Bill;
+import ru.otus.exceptions.NotBillException;
 import ru.otus.exceptions.NotEnoughMoneyException;
 
 public class Main {
@@ -29,10 +30,10 @@ public class Main {
 
         getMoneyFromATM(4567);
 
-        getMoneyFromATM(408434);
+        getMoneyFromATM(408490);
 
-        getMoneyFromATM(400333);
-        getMoneyFromATM(434);
+        getMoneyFromATM(400360);
+        getMoneyFromATM(480);
         getMoneyFromATM(4434);
     }
 
@@ -43,11 +44,12 @@ public class Main {
             System.out.println("Операция снятие наличных на сумму " + sum + " из банкомата" );
             IAmount amount = atm.getCash(sum);
             System.out.println(amount);
-        } catch (NotEnoughMoneyException e) {
+        } catch (NotEnoughMoneyException | NotBillException e) {
+            System.out.println("Не удалось снять наличные. Ошибка: " + e.getMessage());
             System.out.println("Не удалось снять наличные. Ошибка: " + e.getMessage());
         } finally {
             System.out.println();
-            System.out.println("Остаток средств в банкомате после пополнения - " + atm.getBalance());
+            System.out.println("Остаток средств в банкомате - " + atm.getBalance());
             System.out.println("---------------------------------------------------------");
         }
     }

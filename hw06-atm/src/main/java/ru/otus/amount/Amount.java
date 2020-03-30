@@ -3,6 +3,7 @@ package ru.otus.amount;
 import ru.otus.bill.IBill;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Amount implements IAmount {
@@ -16,6 +17,22 @@ public class Amount implements IAmount {
     @Override
     public void addBill(IBill bill, int count) {
         money.put(bill, count);
+    }
+
+    @Override
+    public Set<Map.Entry<IBill, Integer>> entrySet() {
+        return money.entrySet();
+    }
+
+    @Override
+    public void clear(){
+        money.clear();
+    }
+
+    @Override
+    public void putAll(Map<IBill, Integer> map) {
+        money.clear();
+        money.putAll(map);
     }
 
     @Override
