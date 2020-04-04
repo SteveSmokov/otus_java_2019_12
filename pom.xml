@@ -19,6 +19,7 @@
     <modules>
         <module>hw01-maven</module>
         <module>hw07-departament</module>
+        <module>hw08-my_gson</module>
     </modules>
 
     <properties>
