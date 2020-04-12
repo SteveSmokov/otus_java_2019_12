@@ -9,6 +9,9 @@ package converter;
         import testclasses.MainTestClass;
         import testclasses.SubTestClass;
 
+        import java.text.DateFormat;
+        import java.text.ParseException;
+        import java.text.SimpleDateFormat;
         import java.util.*;
         import java.util.stream.Collectors;
         import java.util.stream.Stream;
@@ -48,9 +51,15 @@ public class TestDiyGson {
     }
 
     @Test
-    public void DateTest(){
-        Date d = new Date();
-        Assertions.assertEquals(gson.toJson(d),diyGson.toJSON(d));
+    public void DateTest() {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+        try {
+            Date d = dateFormat.parse("01.01.2012 02:03:05");
+            Assertions.assertEquals(gson.toJson(d),diyGson.toJSON(d));
+        } catch (ParseException E){
+            E.printStackTrace();
+        }
+
     }
 
     @Test
