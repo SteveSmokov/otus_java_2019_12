@@ -19,6 +19,7 @@
     <modules>
         <module>hw01-maven</module>
         <module>hw07-departament</module>
+        <module>hw09-my_orm</module>
     </modules>
 
     <properties>
