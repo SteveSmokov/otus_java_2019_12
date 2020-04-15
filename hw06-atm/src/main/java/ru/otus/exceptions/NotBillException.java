@@ -1,6 +1,6 @@
 package ru.otus.exceptions;
 
-public class NotBillException extends Exception {
+public class NotBillException extends ATMException {
     public NotBillException(String message) {
         super(message);
     }

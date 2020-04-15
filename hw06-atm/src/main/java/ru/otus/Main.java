@@ -1,16 +1,16 @@
 package ru.otus;
 
-import ru.otus.amount.IAmount;
+import ru.otus.amount.Amount;
+import ru.otus.atm.ATMImpl;
 import ru.otus.atm.ATM;
-import ru.otus.atm.IATM;
 import ru.otus.bill.Bill;
 import ru.otus.exceptions.NotBillException;
 import ru.otus.exceptions.NotEnoughMoneyException;
 
 public class Main {
-    private static IATM atm;
+    private static ATM atm;
     public static void main(String[] args){
-        atm = new ATM();
+        atm = new ATMImpl();
         atm.loadCash(Bill.ONE,1000);
         atm.loadCash(Bill.TWO,1000);
         atm.loadCash(Bill.FIVE,1000);
@@ -42,7 +42,7 @@ public class Main {
             System.out.println();
             System.out.println("---------------------------------------------------------");
             System.out.println("Операция снятие наличных на сумму " + sum + " из банкомата" );
-            IAmount amount = atm.getCash(sum);
+            Amount amount = atm.getCash(sum);
             System.out.println(amount);
         } catch (NotEnoughMoneyException | NotBillException e) {
             System.out.println("Не удалось снять наличные. Ошибка: " + e.getMessage());

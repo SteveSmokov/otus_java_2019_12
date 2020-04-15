@@ -1,7 +1,7 @@
 package ru.otus.bill;
 
 
-public enum Bill implements IBill {
+public enum Bill {
     ONE(1),
     TWO(2),
     FIVE(5),
@@ -19,7 +19,6 @@ public enum Bill implements IBill {
         this.cost = cost;
     }
 
-    @Override
     public int getCost() {
         return this.cost;
     }
