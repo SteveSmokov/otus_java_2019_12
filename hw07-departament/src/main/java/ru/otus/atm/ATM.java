@@ -1,130 +1,15 @@
 package ru.otus.atm;
 
 import ru.otus.amount.Amount;
-import ru.otus.amount.IAmount;
-import ru.otus.atm.memento.Memento;
-import ru.otus.bill.IBill;
+import ru.otus.bill.Bill;
 import ru.otus.exceptions.NotBillException;
 import ru.otus.exceptions.NotEnoughMoneyException;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
-
-public class ATM implements IATM {
-    private final String nameATM;
-
-    private Map<IBill, Integer> balance;
-    private Memento memento;
-
-    @Override
-    public void resetState() {
-        balance.clear();
-        balance.putAll(memento.getPrevBalanceState());
-    }
-
-    @Override
-    public String getName() {
-        return nameATM;
-    }
-
-    public ATM(String nameATM, ATMBuilder builder) {
-        this.nameATM = nameATM;
-        this.balance = builder.balance;
-        memento = new Memento(builder.balance);
-    }
-
-    @Override
-    public void loadCash(IBill cash, int quantity) {
-        balance.put(cash, quantity);
-    }
-
-    private void getCasheATBalance(IAmount amaunt) {
-        Integer value;
-        for(Map.Entry<IBill,Integer> e: amaunt.entrySet()){
-            value = balance.get(e.getKey()) - e.getValue();
-            balance.put(e.getKey(), value);
-        }
-    }
-
-    private Boolean reverseCreateAmount(IAmount amaunt, int sum){
-        Boolean result = false;
-        Map<IBill, Integer> bal1 = new TreeMap<IBill, Integer>(Comparator.comparing(IBill::getCost));
-        amaunt.entrySet().stream()
-                .forEachOrdered(x -> bal1.put(x.getKey(), x.getValue()));
-        IBill minKey = balance.keySet().stream().min(Comparator.comparing(IBill::getCost)).get();
-        int count;
-        for(Map.Entry<IBill,Integer> e: bal1.entrySet()){
-            sum = sum + e.getKey().getCost() * e.getValue();
-            bal1.replace(e.getKey(), e.getValue(), 0);
-            count = sum / minKey.getCost();
-            if (((sum - count * minKey.getCost()) == 0) && (count<=balance.get(minKey))){
-                bal1.entrySet().removeIf(entry -> entry.getValue()==0);
-                amaunt.clear();
-                amaunt.putAll(bal1);
-                amaunt.addBill(minKey, count);
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public IAmount getCash(int sum) throws NotEnoughMoneyException, NotBillException {
-        if (sum > getBalance()){
-            throw new NotEnoughMoneyException("Не достаточно средств в банкомате!");
-        }
-        IAmount amountIssued = new Amount();
-        int count;
-        for(Map.Entry<IBill, Integer> e: balance.entrySet()) {
-            if (sum > 0) {
-                if (e.getValue() > 0) {
-                    count = sum / e.getKey().getCost();
-                    if (count > 0) {
-                        if (count > e.getValue()) count = e.getValue();
-                        amountIssued.addBill(e.getKey(), count);
-                        sum = sum - (count * e.getKey().getCost());
-                    }
-                }
-            } else break;
-        }
-        if (sum>0 && !reverseCreateAmount(amountIssued, sum)){
-            amountIssued.clear();
-            throw new NotBillException("Отсуствуют некоторые номиналы купюр!");
-        } else getCasheATBalance(amountIssued);
-        return amountIssued;
-    }
-
-    @Override
-    public int getBalance() {
-        return balance.entrySet().stream().mapToInt(bill -> bill.getKey().getCost() * bill.getValue()).sum();
-    }
-
-    @Override
-    public void clearBalance() {
-        balance.keySet().forEach(bill -> balance.compute(bill, (bill2, oldCount) -> 0));
-    }
-
-    @Override
-    public String toString() {
-        return nameATM + " { " +
-                "balance=" + balance +
-                " }";
-    }
-
-    public static class ATMBuilder {
-        private Map<IBill, Integer> balance =
-                new TreeMap<>(Collections.reverseOrder(Comparator.comparing(IBill::getCost)));
-
-        public ATMBuilder loadCash(IBill bill, int quantity){
-            this.balance.put(bill, quantity);
-            return this;
-        }
-
-        public ATM build(String nameATM){
-            return new ATM(nameATM, this);
-        }
-    }
+public interface ATM {
+    void loadCash(Bill cash, int quantity);
+    Amount getCash(int sum) throws NotEnoughMoneyException, NotBillException;
+    int getBalance();
+    void resetState();
+    String getName();
+    void clearBalance();
 }

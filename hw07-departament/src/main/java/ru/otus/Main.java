@@ -1,30 +1,30 @@
 package ru.otus;
 
-import ru.otus.amount.IAmount;
+import ru.otus.amount.Amount;
+import ru.otus.atm.ATMImpl;
 import ru.otus.atm.ATM;
-import ru.otus.atm.IATM;
-import ru.otus.bill.Bill;
+import ru.otus.bill.*;
+import ru.otus.departament.DepartamentImpl;
 import ru.otus.departament.Departament;
-import ru.otus.departament.IDepartament;
 import ru.otus.exceptions.NotBillException;
 import ru.otus.exceptions.NotEnoughMoneyException;
 
 public class Main {
-    private static IDepartament departament;
+    private static Departament departament;
     public static void main(String[] args){
-        departament = new Departament("GosBank");
+        departament = new DepartamentImpl("GosBank");
         for (int i=1; i<=5; i++) {
-            departament.createATM(new ATM.ATMBuilder()
-                    .loadCash(Bill.ONE, 1000 * i)
-                    .loadCash(Bill.TWO, 1000 * i)
-                    .loadCash(Bill.FIVE, 1000 * i)
-                    .loadCash(Bill.TEN, 1000 * i)
-                    .loadCash(Bill.TWENTY, 1000 * i)
-                    .loadCash(Bill.FIFTY, 500 * i)
-                    .loadCash(Bill.ONE_HUNDRED, 500 * i)
-                    .loadCash(Bill.TWO_HUNDRED, 500 * i)
-                    .loadCash(Bill.FIVE_HUNDRED, 200 * i)
-                    .loadCash(Bill.ONE_THOUSAND, 100 * i)
+            departament.createATM(new ATMImpl.ATMBuilder()
+                    .loadCash(new One(), 1000 * i)
+                    .loadCash(new Two(), 1000 * i)
+                    .loadCash(new Five(), 1000 * i)
+                    .loadCash(new Ten(), 1000 * i)
+                    .loadCash(new Twenty(), 1000 * i)
+                    .loadCash(new Fifty(), 500 * i)
+                    .loadCash(new OneHundred(), 500 * i)
+                    .loadCash(new TwoHundred(), 500 * i)
+                    .loadCash(new FiveHundred(), 200 * i)
+                    .loadCash(new OneThousand(), 100 * i)
                     .build(departament.getDepartName() + " ATM_" + i));
         }
 
@@ -44,12 +44,12 @@ public class Main {
     }
 
     private static void getMoneyFromATM(int atmIndex, int sum) {
-        IATM atm = departament.getATMByIndex(atmIndex);
+        ATM atm = departament.getATMByIndex(atmIndex);
         try {
             System.out.println();
             System.out.println("---------------------------------------------------------");
             System.out.println("Операция снятие наличных на сумму " + sum + " из банкомата - " + atm.getName());
-            IAmount amount = atm.getCash(sum);
+            Amount amount = atm.getCash(sum);
             System.out.println(amount);
             System.out.println();
             System.out.println("Остаток средств в банкомате - " + atm.getBalance());
