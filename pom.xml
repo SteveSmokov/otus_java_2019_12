@@ -19,6 +19,7 @@
     <modules>
         <module>hw01-maven</module>
         <module>hw04-log_annotation</module>
+        <module>hw14-number_sequence</module>
     </modules>
 
     <properties>
