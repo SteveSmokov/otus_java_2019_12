@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class JdbcTemplateImpl<T> implements JdbcTemplate<T> {
+    private final long ID_NULL = -1;
     private static Logger logger = LoggerFactory.getLogger(JdbcTemplateImpl.class);
     private final DataSource dataSource;
     private DBExecutor<T> executer;
@@ -89,8 +90,8 @@ public class JdbcTemplateImpl<T> implements JdbcTemplate<T> {
             Savepoint savepoint = connection.setSavepoint("UpdateData");
             try {
                 Object objectValue = ReflectionClass.getFieldValue(objectData, mapper.getFieldAutoincrement());
-                long id = objectValue != null ? (long) objectValue : -1;
-                if( id == -1 ) {
+                long id = objectValue != null ? (long) objectValue : ID_NULL;
+                if( id == ID_NULL ) {
                     throw new EntetyException("Id is null");
                 } else {
                     executer.update(query, params, id);
@@ -117,8 +118,8 @@ public class JdbcTemplateImpl<T> implements JdbcTemplate<T> {
             Savepoint savepoint = connection.setSavepoint("CreateOrUpdateData");
             try {
                 Object objectValue = ReflectionClass.getFieldValue(objectData, mapper.getFieldAutoincrement());
-                long id = objectValue != null ? (long) objectValue : 0;
-                if( id == 0 ) {
+                long id = objectValue != null ? (long) objectValue : ID_NULL;
+                if( id == ID_NULL ) {
                     id = executer.insert(mapper.getInsertScript(), params);
                     logger.info("Inserted record, id=" + id);
                     connection.commit();
