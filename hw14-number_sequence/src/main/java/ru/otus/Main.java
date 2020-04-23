@@ -41,7 +41,7 @@ public class Main {
         synchronized (flag){
             try {
                 Thread.sleep(TIME_OUT);
-                if ((Thread.currentThread().getName().equals("1") && flag.getValue()) ||
+                while ((Thread.currentThread().getName().equals("1") && flag.getValue()) ||
                         (Thread.currentThread().getName().equals("2") && !flag.getValue())){
                     flag.wait();
                 }
