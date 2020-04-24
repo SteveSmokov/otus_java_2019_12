@@ -2,83 +2,45 @@ package ru.otus.hibernate.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.otus.hibernate.HibernateUtils;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import java.io.Serializable;
-import java.util.List;
+import java.sql.SQLException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class EntityDaoImpl implements EntityDao{
+public class EntityDaoImpl<T> implements EntityDao<T>{
     private static Logger logger = LoggerFactory.getLogger(EntityDaoImpl.class);
     private final SessionFactory sessionFactory;
 
-    public EntityDaoImpl() {
+    public EntityDaoImpl(SessionFactory sessionFactory) {
         logger.info("Init entity DAO implementation");
-        this.sessionFactory = HibernateUtils.buildSessionFactory();
+        this.sessionFactory = sessionFactory;
         logger.info("Session factory created");
     }
 
     @Override
-    public void create(Object entity) {
+    public void create(T objectData) throws SQLException {
         logger.info("Call procedure for create entity");
-        editBySessionWithTransaction(session -> { session.save(entity);});
+        editBySessionWithTransaction(session -> { session.save(objectData);});
     }
 
     @Override
-    public void update(Object entity) {
+    public void update(T objectData) throws SQLException {
         logger.info("Call procedure for update entity");
-        editBySessionWithTransaction(session -> { session.update(entity);});
+        editBySessionWithTransaction(session -> { session.update(objectData);});
     }
 
     @Override
-    public Object findByID(Serializable id, Class clazz) {
+    public void createOrUpdate(T objectData) throws SQLException {
+        logger.info("Call procedure for create or update entity");
+        editBySessionWithTransaction(session -> {session.saveOrUpdate(objectData);});
+    }
+
+    @Override
+    public <T1> T1 load(long id, Class<T1> clazz) throws SQLException {
         logger.info("Call function for return entity by ID");
         return queryBySessionWithTransaction(session -> {
             return session.get(clazz, id);
-        });
-    }
-
-    @Override
-    public long getCount(Class clazz) {
-        logger.info(String.format("Call function for return entity %s count", clazz.getSimpleName()));
-        return queryBySessionWithTransaction(session -> {
-            Query query = session.createQuery(String.format("select count(e) from %s e",clazz.getSimpleName()));
-            return (long)query.getSingleResult();
-        });
-    }
-
-    @Override
-    public List selectAll(Class clazz) {
-        logger.info("Call function for return all entities in DB");
-        return queryBySessionWithTransaction(session -> {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            final CriteriaQuery criteria = builder.createQuery(clazz);
-            criteria.from(clazz);
-            final Query query = session.createQuery(criteria);
-            return query.getResultList();
-        });
-    }
-
-    @Override
-    public void delete(Object entity) {
-        logger.info("Call procedure for delete entity");
-        editBySessionWithTransaction(session -> { session.delete(entity);});
-    }
-
-    @Override
-    public void deleteAll(Class clazz) {
-        logger.info("Call procedure for delete all entities in DB");
-        editBySessionWithTransaction(session -> {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            final CriteriaDelete criteria = builder.createCriteriaDelete(clazz);
-            criteria.from(clazz);
         });
     }
 
