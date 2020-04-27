@@ -35,7 +35,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.otus.homework.HelloOtus</mainClass>
+                            <mainClass>ru.ru.otus.homework.HelloOtus</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
