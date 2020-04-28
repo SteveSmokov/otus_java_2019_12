@@ -1,4 +1,4 @@
-package ru.otus.hibernate.dao;
+package ru.otus.services;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,16 +9,17 @@ import ru.otus.entities.AddressDataSet;
 import ru.otus.entities.PhoneDataSet;
 import ru.otus.entities.User;
 import ru.otus.hibernate.HibernateUtils;
+import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
 
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.List;
 
-class EntityDaoImplTest {
+class EntityServiceTest {
 
 
-    private static Logger logger = LoggerFactory.getLogger(EntityDaoImplTest.class);
-    private final EntityDao<User> userEntity = new EntityDaoImpl(HibernateUtils.buildSessionFactory());
+    private static Logger logger = LoggerFactory.getLogger(EntityServiceTest.class);
+    SessionManagerHibernate sessionManager = new SessionManagerHibernate(HibernateUtils.buildSessionFactory());
+    private final EntityService<User> userService = new EntityServiceImp<>(new EntityDaoImpl<User>(sessionManager));
     private User user1;
     private User user2;
 
@@ -39,7 +40,7 @@ class EntityDaoImplTest {
     @Test
     void createUser() throws SQLException {
         logger.info("User1 before save : " + user1.toString());
-        userEntity.create(user1);
+        userService.create(user1);
         logger.info("User1 after save : " + user1.toString());
         Assertions.assertThat(user1.getId()>0);
     }
@@ -47,7 +48,7 @@ class EntityDaoImplTest {
     @Test
     void updateUser() throws SQLException {
         logger.info("User1 before save : " + user1.toString());
-        userEntity.create(user1);
+        userService.create(user1);
         logger.info("User1 after save : " + user1.toString());
         user1.setName("Modified user 1");
         user1.setAge(11);
@@ -56,8 +57,8 @@ class EntityDaoImplTest {
                new PhoneDataSet("+1000000003"),
                new PhoneDataSet("+1000000004")));
         logger.info("User1 before update : " + user1.toString());
-        userEntity.update(user1);
-        User selectedUser = (User) userEntity.load(user1.getId(), User.class);
+        userService.update(user1);
+        User selectedUser = (User) userService.load(user1.getId(), User.class);
         logger.info("User1 after update : " + selectedUser.toString());
         Assertions.assertThat(user1.equals(selectedUser));
     }
@@ -65,9 +66,9 @@ class EntityDaoImplTest {
     @Test
     void findByID() throws SQLException {
         logger.info("User1 before save : " + user1.toString());
-        userEntity.create(user1);
+        userService.create(user1);
         logger.info("User1 after save : " + user1.toString());
-        User selectedUser = (User) userEntity.load(user1.getId(), User.class);
+        User selectedUser = (User) userService.load(user1.getId(), User.class);
         logger.info("Selected user after save : " + selectedUser.toString());
         Assertions.assertThat(user1.equals(selectedUser));
     }
