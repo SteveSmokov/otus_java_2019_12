@@ -24,8 +24,7 @@ public class User {
     @JoinColumn(name = "address_id")
     private AddressDataSet address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PhoneDataSet> phones;
 
     public User() {
@@ -79,12 +78,14 @@ public class User {
         User user = (User) o;
         return getId() == user.getId() &&
                 getAge() == user.getAge() &&
-                getName().equals(user.getName());
+                getName().equals(user.getName()) &&
+                getAddress().equals(user.getAddress()) &&
+                getPhones().equals(user.getPhones());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getAge());
+        return Objects.hash(getId(), getName(), getAge(), getAddress(), getPhones());
     }
 
     @Override

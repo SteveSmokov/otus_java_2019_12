@@ -25,6 +25,7 @@ public class Main {
                 new PhoneDataSet("+1000000002")));
         SessionManagerHibernate sessionManager = new SessionManagerHibernate(HibernateUtils.buildSessionFactory());
         EntityService<User> userService = new EntityServiceImp<>(new EntityDaoImpl<User>(sessionManager));
+        logger.info("***************************************************************************************************");
         logger.info(user1.toString());
         userService.create(user1);
         logger.info(user1.toString());
