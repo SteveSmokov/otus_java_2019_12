@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Добавление/редактирование пользователя</title>
+    </head>
+    <body>
+        <form method= "post" action="/edit">
+            <label for="userName">Имя: </label>
+            <input type="text" id="userName" name= "user_name" required th:value="${user_name}"/>
+
+            <br>
+            <label for="userLogin">Логин: </label>
+            <input type="text" id="userLogin" name= "user_login" required th:value="${user_login}"/>
+
+            <br>
+            <label for="userPassword">Пароль: </label>
+            <input type="password" id="userPassword" name= "user_password" required th:value="${user_password}"/>
+
+            <br>
+            <input type="submit" value="Сохранить" name="save_button"/>
+            <input type="reset" value="Отмена" name="close_button"/>
+        </form>
+    </body>
+</html>
