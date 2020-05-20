@@ -21,6 +21,7 @@
         <module>hw04-log_annotation</module>
         <module>hw09-my_orm</module>
         <module>hw12-web_server</module>
+        <module>hw13-ioc</module>
     </modules>
 
     <properties>

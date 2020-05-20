@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .users, .user td {
+            border: 1px solid lightgray;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+
+        a {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h4>Добавление/редактирование пользователей</h4>
+    <table style="width: 500px" border="3" class="users">
+        <thead>
+            <tr>
+                <td style="width: 50px">Id</td>
+                <td style="width: 150px">Имя</td>
+                <td style="width: 100px">Логин</td>
+                <td style="width: 100px">Пароль</td>
+                <td style="width: 100px">
+                    <form method= "get" action="/create">
+                        <button th:href="@{/user/create}" href="userCreate.html" type="submit" value="0">Добавить</button>
+                    </form>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <div th:if="${users} != null">
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getName()}"></td>
+                    <td th:text="${user.getLogin()}"></td>
+                    <td th:text="${user.getPassword()}"></td>
+                    <td>
+                        <form method= "get" action="/edit" th:action="@{/user/create}">
+                            <button type="submit" name="Id" href="userCreate.html" required th:value="${user.getId()}">Редактировать</button>
+                        </form>
+                    </td>
+                </tr>
+            </div>
+        </tbody>
+    </table>
+</body>
+</html>
