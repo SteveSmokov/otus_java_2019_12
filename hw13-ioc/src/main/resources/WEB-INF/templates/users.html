@@ -29,7 +29,7 @@
                 <td style="width: 100px">Логин</td>
                 <td style="width: 100px">Пароль</td>
                 <td style="width: 100px">
-                    <form method= "get" action="/create">
+                    <form method= "get" action="/create" th:action="@{/user/create}">
                         <button th:href="@{/user/create}" href="userCreate.html" type="submit" value="0">Добавить</button>
                     </form>
                 </td>
@@ -43,8 +43,8 @@
                     <td th:text="${user.getLogin()}"></td>
                     <td th:text="${user.getPassword()}"></td>
                     <td>
-                        <form method= "get" action="/edit" th:action="@{/user/create}">
-                            <button type="submit" name="Id" href="userCreate.html" required th:value="${user.getId()}">Редактировать</button>
+                        <form method= "get" action="/edit" th:action="@{/user/edit}">
+                            <button type="submit" th:href="@{/user/edit}"href="userCreate.html" th:name="id" th:value="${user.getId()}" required>Редактировать</button>
                         </form>
                     </td>
                 </tr>
