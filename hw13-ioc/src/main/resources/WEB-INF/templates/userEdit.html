@@ -5,21 +5,24 @@
         <title>Добавление/редактирование пользователя</title>
     </head>
     <body>
-        <form method= "post" th:action="@{/user/save}" th:object="${user}" th:method="post" accept-charset="utf-8">
-            <label for="userName">Имя: </label>
-            <input type="text" id="userName" name= "user_name" th:value="${user.name}"/>
+        <form id="create-form" th:action="@{/user/save}" th:object="${user}" th:method="post" accept-charset="utf-8">
+            <input id="user_id" name="id" type="hidden" th:value="${user.id}"/>
+            <div class="row">
+                <label for="user_name">Имя:</label>
+                <input id="user_name" name="name" type="text" placeholder="Enter user name" th:value="${user.name}" value=""/>
+            </div>
+            <div class="row">
+                <label for="user_login">Логин:</label>
+                <input id="user_login" name="login" type="text" placeholder="Enter user login" th:value="${user.login}" value=""/>
+            </div>
+            <div class="row">
+                <label for="user_password">Пароль:</label>
+                <input id="user_password" name="password" type="password" placeholder="Enter user password" th:value="${user.password}" value=""/>
+            </div>
 
-            <br>
-            <label for="userLogin">Логин: </label>
-            <input type="text" id="userLogin" name= "user_login" th:value="${user.login}"/>
-
-            <br>
-            <label for="userPassword">Пароль: </label>
-            <input type="password" id="userPassword" name= "user_password" th:value="${user.password}"/>
-
-            <br>
-            <input type="submit" value="Сохранить" name="save_button"/>
-            <input type="reset" value="Отмена" name="close_button"/>
+            <div class="row">
+                <button type="submit">Сохранить</button>
+            </div>
         </form>
     </body>
 </html>

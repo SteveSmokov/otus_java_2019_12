@@ -6,12 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.otus.entities.User;
 import ru.otus.services.AdminUserService;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -27,11 +24,6 @@ public class UserController {
 
     public UserController(AdminUserService adminUserService) {
         this.adminUserService = adminUserService;
-    }
-
-//    @GetMapping("/")
-    public String getIndexPage() {
-        return "index.html";
     }
 
     @GetMapping({"/","/login"})
@@ -63,8 +55,8 @@ public class UserController {
 
     @PostMapping("/user/save")
     public RedirectView saveUser(@ModelAttribute User user) {
+        logger.info("Сохранение пользователя: {}", user);
         adminUserService.createOrUpdate(user);
-        logger.info("Пользователь: {}", user);
         return  new RedirectView("/user/list", true);
     }
 
@@ -72,16 +64,15 @@ public class UserController {
     public String getUserEditPage(Model model
             , @RequestParam(name = WEB_PAR_USER_ID) String id){
         logger.info("Edit user id = "+id);
-        User editUser = adminUserService.load(Long.parseLong(id), User.class);
-        model.addAttribute("user", editUser);
-        logger.info("Пользователь: {}", editUser);
+        User user = adminUserService.load(Long.parseLong(id), User.class);
+        model.addAttribute("user", user);
+        logger.info("Редактирование пользователя: {}", user);
         return "userEdit.html";
     }
 
     @GetMapping("/user/create")
     public String getCreateUserPage(Model model){
-        User createUser = new User();
-        model.addAttribute("user", createUser);
+        model.addAttribute("user", new User());
         return "userEdit.html";
     }
 
