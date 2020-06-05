@@ -1,7 +1,7 @@
 package ru.otus.web.servelets;
 
 import ru.otus.entities.User;
-import ru.otus.services.AdminUserService;
+import ru.otus.db.services.AdminUserService;
 import ru.otus.web.services.TemplateProcessor;
 
 import javax.servlet.ServletException;

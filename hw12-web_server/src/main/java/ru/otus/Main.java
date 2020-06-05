@@ -1,7 +1,7 @@
 package ru.otus;
 
-import ru.otus.hibernate.HibernateUtils;
-import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
+import ru.otus.db.hibernate.HibernateUtils;
+import ru.otus.db.hibernate.sessionmanager.SessionManagerHibernate;
 import ru.otus.web.server.UsersWebServer;
 import ru.otus.web.server.UsersWebServerImpl;
 import ru.otus.web.services.TemplateProcessor;

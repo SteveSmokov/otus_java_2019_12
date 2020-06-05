@@ -7,11 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.entities.PhoneDataSet;
 import ru.otus.entities.User;
-import ru.otus.hibernate.HibernateUtils;
-import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
-import ru.otus.services.AdminUserDaoImpl;
-import ru.otus.services.AdminUserService;
-import ru.otus.services.AdminUserServiceImp;
+import ru.otus.db.hibernate.HibernateUtils;
+import ru.otus.db.hibernate.sessionmanager.SessionManagerHibernate;
+import ru.otus.db.services.AdminUserDaoImpl;
+import ru.otus.db.services.AdminUserService;
+import ru.otus.db.services.AdminUserServiceImp;
 
 import java.util.Arrays;
 

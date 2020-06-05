@@ -1,6 +1,6 @@
 package ru.otus.web.services;
 
-import ru.otus.services.AdminUserService;
+import ru.otus.db.services.AdminUserService;
 
 public class UserAuthServiceImpl implements UserAuthService {
     private final AdminUserService adminUserService;
