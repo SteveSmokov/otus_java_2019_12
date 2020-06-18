@@ -1,10 +1,8 @@
 package ru.otus.messagesystem;
 
-import ru.otus.messagesystem.clients.MSClient;
-import ru.otus.messagesystem.messages.Message;
-
 public interface MessageSystem {
-    void addClient(MSClient msClient);
+
+    void addClient(MsClient msClient);
 
     void removeClient(String clientId);
 
@@ -18,3 +16,4 @@ public interface MessageSystem {
 
     int currentQueueSize();
 }
+

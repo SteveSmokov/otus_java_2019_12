@@ -3,7 +3,9 @@ package ru.otus.db.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.db.hibernate.sessionmanager.SessionManager;
+import ru.otus.entities.User;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -26,8 +28,9 @@ public class EntityServiceImp<T> implements EntityService<T> {
     }
 
     @Override
-    public void createOrUpdate(T objectData) {
+    public Optional<User> createOrUpdate(T objectData) {
         editBySessionWithTransaction(sessionManager -> { entityDao.createOrUpdate(objectData);});
+        return null;
     }
 
     @Override

@@ -1,11 +1,12 @@
 package ru.otus.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "phones")
-public class PhoneDataSet {
+public class PhoneDataSet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

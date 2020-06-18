@@ -4,10 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.otus.entities.User;
 import ru.otus.db.hibernate.exceptions.EntityDaoException;
 import ru.otus.db.hibernate.sessionmanager.DatabaseSession;
 import ru.otus.db.hibernate.sessionmanager.SessionManager;
+import ru.otus.entities.User;
 
 import java.util.List;
 import java.util.Optional;

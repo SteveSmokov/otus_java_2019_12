@@ -3,8 +3,8 @@ package ru.otus.db.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.db.cachehw.HwCache;
-import ru.otus.entities.User;
 import ru.otus.db.hibernate.sessionmanager.SessionManager;
+import ru.otus.entities.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,11 +36,12 @@ public class AdminUserServiceImp implements AdminUserService {
     }
 
     @Override
-    public void createOrUpdate(User objectData) {
+    public Optional<User> createOrUpdate(User objectData) {
         editBySessionWithTransaction(sessionManager -> {
             entityDao.createOrUpdate(objectData);
         });
         cache.put(objectData.getId(), objectData);
+        return null;
     }
 
     @Override
