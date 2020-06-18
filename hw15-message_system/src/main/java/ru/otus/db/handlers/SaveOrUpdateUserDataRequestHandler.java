@@ -19,7 +19,7 @@ public class SaveOrUpdateUserDataRequestHandler implements RequestHandler {
     @Override
     public Optional<Message> handle(Message msg) {
         User user = Serializers.deserialize(msg.getPayload(), User.class);
-        Optional<User> authUser = userDBService.createOrUpdate(user);
-        return Optional.of(new Message(msg.getTo(), msg.getFrom(), msg.getId(), MessageType.SAVE_USER_DATA.getValue(), Serializers.serialize(authUser.get())));
+        userDBService.createOrUpdate(user);
+        return Optional.of(new Message(msg.getTo(), msg.getFrom(), msg.getId(), MessageType.SAVE_USER_DATA.getValue(), Serializers.serialize(user)));
     }
 }

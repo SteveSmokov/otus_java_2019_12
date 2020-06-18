@@ -20,12 +20,14 @@ const connect = () => {
     stompClient.connect({}, (frame) => {
         console.log('Connected to ' + frame);
         setConnected(true);
-        stompClient.subscribe('/topic/authresult', (message) => prepAuthResult(JSON.parse(message.body)));
+        stompClient.subscribe('/topic/authresult', (message) => prepareResult(JSON.parse(message.body)));
+        stompClient.subscribe('/topic/user/list', (message) => showUsers(JSON.parse(message.body)));
+        stompClient.subscribe('/topic/user/save', (message) => prepareResult(JSON.parse(message.body)));
     });
 };
 
-const prepAuthResult = (result) => {
-    console.log("Auth result "+result);
+const prepareResult = (result) => {
+    console.log("Result "+result);
     if (result.message == "OK"){
         getUsers();
     }
@@ -33,12 +35,20 @@ const prepAuthResult = (result) => {
 
 const showUsers = (users) => {
     console.log("Users list size "+users.length);
+    $("#userList").empty();
     for(var i=0; i<users.length;i++) {
        $("#userList").append("<tr><td>" + users[i].id + "</td><td>" + users[i].name + "</td><td>" +
             users[i].login + "</td><td>" + users[i].password + "</td>"+
-        "<td><button type=\"submit\" value=\""+users[i].id+
-        "\" id=\"editSubmit\">Редактировать</button></td></tr>");
+        "<td><button type=\"submit\" onclick=\"editUser("+users[i].id+")\">Редактировать</button></td></tr>");
     }
+}
+
+const showEditUser = (user) => {
+    console.log("User "+user);
+    $("#user_id").val(user.id);
+    $("#user_name").val(user.name);
+    $("#user_login").val(user.login);
+    $("#user_password").val(user.password);
 }
 
 const authUser = () => {
@@ -51,23 +61,36 @@ const authUser = () => {
 
 const getUsers = () => {
     $("#login-form").hide();
+    $("#edit-user-form").hide();
     $("#user-list-form").show();
     console.log("Get users...");
-    stompClient.subscribe('/topic/user/list.'+$("#login").val(), (message) => showUsers(JSON.parse(message.body)));
-    stompClient.send("/app/user/list."+$("#login").val(), {}, {});
+    stompClient.send("/app/user/list", {}, {});
 };
 
-const editUser = () => {
-    stompClient.subscribe('/topic/user/edit.'+$("#editSubmit").val(), (message) => showUsers(JSON.parse(message.body)));
-    stompClient.send("/app/user/edit."+$("#editSubmit").val(), {}, {});
+const editUser = (userID) => {
+    $("#user-list-form").hide();
+    $("#edit-user-form").show();
+    console.log("Edit user id="+userID);
+    if(userID>0) {
+        stompClient.subscribe('/topic/user/edit.'+userID, (message) => showEditUser(JSON.parse(message.body)));
+        stompClient.send("/app/user/edit." + userID, {}, {});
+    } else {
+        showEditUser(JSON.stringify({
+            'id':0,
+            'name':'',
+            'login':'',
+            'password':''
+        }));
+    }
 }
 
 const createOrUpdateUser = () => {
     console.log("Create or update user...");
-    stompClient.send("/user/save", {}, JSON.stringify({
-        'name':$("#name").val(),
-        'login':$("#login").val(),
-        'password':$("#password").val()
+    stompClient.send("/app/user/save", {}, JSON.stringify({
+        'id':$("#user_id").val(),
+        'name':$("#user_name").val(),
+        'login':$("#user_login").val(),
+        'password':$("#user_password").val()
     }));
 };
 

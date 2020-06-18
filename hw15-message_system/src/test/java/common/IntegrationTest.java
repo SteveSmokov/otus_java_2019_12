@@ -172,6 +172,7 @@ public class IntegrationTest {
         HwCache<Long, User> userCache = new MyCache<>(10);
         AdminUserService dbService = new AdminUserServiceImp(userDao, userCache);
         AdminUser adminUser = new AdminUser(dbService);
+        adminUser.onApplicationEvent(null);
 
         databaseMsClient.addHandler(MessageType.AUTH_USER_DATA, new GetAuthUserDataRequestHandler(dbService));
         databaseMsClient.addHandler(MessageType.GET_USER_DATA, new GetUserDataRequestHandler(dbService));

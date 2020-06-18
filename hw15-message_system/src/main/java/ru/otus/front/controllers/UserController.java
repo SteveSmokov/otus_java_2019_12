@@ -45,9 +45,9 @@ public class UserController {
         else return new ResultMessage("Login or password is not correct");
     }
 
-    @MessageMapping("/user/list.{userLogin}")
-    @SendTo("/topic/user/list.{userLogin}")
-    public List<User> getUserListPage(@DestinationVariable String userLogin) throws InterruptedException {
+    @MessageMapping("/user/list")
+    @SendTo("/topic/user/list")
+    public List<User> getUserListPage() throws InterruptedException {
         CountDownLatch waitLatch = new CountDownLatch(1);
         AtomicReference<List<User>> users = new AtomicReference<List<User>>();
         frontendService.getUserList(data -> {
@@ -59,27 +59,43 @@ public class UserController {
         return users.get();
     }
 
-//    @MessageMapping("/user/save")
-//    public void saveUser(@ModelAttribute User user) {
-//        logger.info("Сохранение пользователя: {}", user);
-//        adminUserService.createOrUpdate(user);
-//        return  new RedirectView("/user/list", true);
-//    }
+    @MessageMapping("/user/save")
+    @SendTo("/topic/user/save")
+    public ResultMessage saveUser(User user) {
+        logger.info("User for save {}",user);
+        try {
+            CountDownLatch waitLatch = new CountDownLatch(1);
+            AtomicBoolean savedUser = new AtomicBoolean(false);
+            frontendService.createOrUpdate(user, data -> {
+                logger.info("Saved user {}",data);
+                savedUser.set(data.getId()>0);
+                waitLatch.countDown();
+            });
+            waitLatch.await();
+            if (savedUser.get()) return new ResultMessage("OK");
+            else return new ResultMessage("User is not saved");
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(), e);
+            return new ResultMessage(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new ResultMessage(e.getMessage());
+        }
+    }
 
-//    @GetMapping("/user/edit")
-//    public String getUserEditPage(Model model
-//            , @RequestParam(name = WEB_PAR_USER_ID) String id){
-//        logger.info("Edit user id = "+id);
-//        User user = adminUserService.load(Long.parseLong(id), User.class);
-//        model.addAttribute("user", user);
-//        logger.info("Редактирование пользователя: {}", user);
-//        return "userEdit.html";
-//    }
-
-//    @GetMapping("/user/create")
-//    public String getCreateUserPage(Model model){
-//        model.addAttribute("user", new User());
-//        return "userEdit.html";
-//    }
+    @MessageMapping("/user/edit.{userID}")
+    @SendTo("/topic/user/edit.{userID}")
+    public User getUserEditPage(@DestinationVariable String userID) throws InterruptedException {
+        logger.info("Edit user id = "+userID);
+        CountDownLatch waitLatch = new CountDownLatch(1);
+        AtomicReference<User> user = new AtomicReference<User>();
+        frontendService.load(Long.parseLong(userID), data -> {
+            logger.info("Пользователь для редактирования {}", data);
+            user.set(data);
+            waitLatch.countDown();
+        });
+        waitLatch.await();
+        return user.get();
+    }
 
 }

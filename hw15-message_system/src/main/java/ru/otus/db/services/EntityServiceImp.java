@@ -28,9 +28,8 @@ public class EntityServiceImp<T> implements EntityService<T> {
     }
 
     @Override
-    public Optional<User> createOrUpdate(T objectData) {
+    public void createOrUpdate(T objectData) {
         editBySessionWithTransaction(sessionManager -> { entityDao.createOrUpdate(objectData);});
-        return null;
     }
 
     @Override

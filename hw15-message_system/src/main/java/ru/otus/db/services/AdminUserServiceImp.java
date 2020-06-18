@@ -36,12 +36,11 @@ public class AdminUserServiceImp implements AdminUserService {
     }
 
     @Override
-    public Optional<User> createOrUpdate(User objectData) {
+    public void createOrUpdate(User objectData) {
         editBySessionWithTransaction(sessionManager -> {
             entityDao.createOrUpdate(objectData);
         });
         cache.put(objectData.getId(), objectData);
-        return null;
     }
 
     @Override

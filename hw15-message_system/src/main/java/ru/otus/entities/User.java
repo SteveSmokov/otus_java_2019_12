@@ -57,6 +57,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+
     public User(String name, int age) {
         this.name = name;
         this.age = age;
