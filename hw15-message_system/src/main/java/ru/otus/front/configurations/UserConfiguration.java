@@ -50,7 +50,7 @@ public class UserConfiguration {
         return adminUserService;
     }
 
-    @Bean
+    @Bean(destroyMethod = "dispose")
     public MessageSystem getMessageSystem(){
         MessageSystem messageSystem = new MessageSystemImpl(START_PROCESSING);
         return messageSystem;
