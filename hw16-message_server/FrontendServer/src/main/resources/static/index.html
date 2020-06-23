@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Администрирование пользователей</title>
+	<meta charset="UTF-8">
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script type="text/javascript" src="user.js"></script>
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body onload="initial()">
+	<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+		enabled. Please enable
+		Javascript and reload this page!</h2></noscript>
+	<div id="main-content" class="container">
+		<div class="col-md-6">
+			<form id="login-form" class="form-inline">
+				<div class="form-group">
+					<label for="login">Логин: </label>
+					<input type="text" id="login" name= "login" placeholder="Enter login"/>
+					<br>
+					<label for="password">Пароль: </label>
+					<input type="password" id="password" name= "password" placeholder="Enter password"/>
+
+					<br>
+					<button type="submit" id="authSubmit">Войти</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6">
+			<form id="user-list-form" class="form-inline">
+				<div class="form-group">
+					<table style="width: 500px" border="3">
+						<thead>
+						<tr>
+							<td style="width: 50px">Id</td>
+							<td style="width: 150px">Имя</td>
+							<td style="width: 100px">Логин</td>
+							<td style="width: 100px">Пароль</td>
+							<td>
+								<button type="submit" onclick="editUser(0)">Добавить</button>
+							</td>
+						</tr>
+						</thead>
+						<tbody id="userList">
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6">
+			<form id="edit-user-form" class="form-inline">
+				<input id="user_id" name="id" value="0" type="hidden"/>
+				<div class="row">
+					<label for="user_name">Имя:</label>
+					<input id="user_name" name="name" type="text" placeholder="Enter user name"/>
+				</div>
+				<div class="row">
+					<label for="user_login">Логин:</label>
+					<input id="user_login" name="login" type="text" placeholder="Enter user login"/>
+				</div>
+				<div class="row">
+					<label for="user_password">Пароль:</label>
+					<input id="user_password" name="password" type="password" placeholder="Enter user password"/>
+				</div>
+
+				<div class="row">
+					<button type="submit" id="saveSubmit">Сохранить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
