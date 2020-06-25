@@ -55,6 +55,7 @@ public class Message {
                 ", sourceMessageId=" + sourceMessageId +
                 ", type='" + type + '\'' +
                 ", payloadLength=" + payloadLength +
+                ", payload=" + payload +
                 '}';
     }
 

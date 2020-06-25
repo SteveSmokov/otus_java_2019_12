@@ -45,4 +45,15 @@ public class Serializers {
             throw new RuntimeException("DeSerialization error:" + e.getMessage());
         }
     }
+
+    public static Object deserializeObject(byte[] data) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+             ObjectInputStream is = new ObjectInputStream(bis)) {
+            Object obj = is.readObject();
+            return obj;
+        } catch (Exception e) {
+            logger.error("DeSerialization errorT:"+e.getMessage(), e);
+            throw new RuntimeException("DeSerialization error:" + e.getMessage());
+        }
+    }
 }

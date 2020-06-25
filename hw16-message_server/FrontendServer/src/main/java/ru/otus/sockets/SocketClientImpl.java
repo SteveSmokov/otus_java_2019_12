@@ -1,5 +1,8 @@
 package ru.otus.sockets;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,17 +30,55 @@ public class SocketClientImpl implements SocketClient {
 
   private final ExecutorService executorServer = Executors.newScheduledThreadPool(4);
 
-  private  String dbServiceName;
+  @Parameter(names = "-servicename")
   private  String frontendServiceName;
 
-  public SocketClientImpl(String dbServiceName,String frontendServiceName,
-                          String host, int port) {
+  @Parameter(names = "-host")
+  private String host;
+
+  @Parameter(names = "-port")
+  private int port;
+
+  @Parameter(names = "-dbname")
+  private String dbServiceName;
+
+  public SocketClientImpl(String[] args) {
     try {
-      this.dbServiceName = dbServiceName;
-      this.frontendServiceName = frontendServiceName;
+      initFieldsData(this, args);
       clientSocket = new Socket(host, port);
     } catch (IOException e) {
       logger.error(e.getMessage(),e);
+    }
+  }
+  @Override
+  public String getFrontendServiceName() {
+    return frontendServiceName;
+  }
+
+  @Override
+  public String getHost() {
+    return host;
+  }
+
+  @Override
+  public int getPort() {
+    return port;
+  }
+
+  @Override
+  public String getDbServiceName() {
+    return dbServiceName;
+  }
+
+  private static void initFieldsData(Object object, String[] args) {
+    JCommander jCommander = new JCommander(object);
+    jCommander.setAcceptUnknownOptions(true);
+    try {
+      jCommander.parse(args);
+    }
+    catch (ParameterException e) {
+      logger.error("jCommander error: {}", e.getMessage());
+      throw new RuntimeException(e);
     }
   }
 

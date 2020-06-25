@@ -1,7 +1,16 @@
 package ru.otus.entities;
 
-public class AddressDataSet {
+import java.io.Serializable;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "address")
+public class AddressDataSet implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(name = "street")
     private String street;
 
     public AddressDataSet(String street) {

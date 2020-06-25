@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import ru.otus.entities.User;
 import ru.otus.messages.AuthMessage;
 import ru.otus.messages.ResultMessage;
+import ru.otus.service.FrontendServiceMSClient;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -21,8 +23,12 @@ import java.util.concurrent.atomic.AtomicReference;
 public class UserController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
-//    private FrontendServiceMSClient frontendService;
+    private FrontendServiceMSClient frontendService;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
+    public UserController(SimpMessagingTemplate simpMessagingTemplate) {
+        this.simpMessagingTemplate = simpMessagingTemplate;
+    }
 
     @MessageMapping("/")
     public String getIndexPage() {
@@ -30,68 +36,54 @@ public class UserController {
     }
 
     @MessageMapping("/login")
-//    @SendTo("/topic/authresult")
     public void authorizationUser(AuthMessage message) throws InterruptedException {
         logger.info("Message {}",message);
-        AtomicBoolean authorized = new AtomicBoolean(false);
-//        frontendService.getUserByLogin(message.getLogin(), data -> {
-//            authorized.set(data.getPassword().equals(message.getPassword()));
-//            waitLatch.countDown();
-//        });
-//        if (authorized.get()) return new ResultMessage("OK");
-//        else return new ResultMessage("Login or password is not correct");
+        frontendService.getUserByLogin(message.getLogin(), data -> {
+            if (data.getPassword().equals(message.getPassword())) {
+                logger.info("Result is OK");
+                simpMessagingTemplate.convertAndSend("/topic/authresult", new ResultMessage("OK"));
+            } else {
+                logger.info("Login or password is not correct");
+                simpMessagingTemplate.convertAndSend("/topic/authresult",
+                        new ResultMessage("Login or password is not correct"));
+            }
+        });
     }
 
     @MessageMapping("/user/list")
-    @SendTo("/topic/user/list")
     public void getUserListPage() throws InterruptedException {
-//        List<User> users;
-//        frontendService.getUserList(data -> {
-//            logger.info("Список пользователей: {}", data);
-//            users.set(data);
-//
-//        });
-//        waitLatch.await();
-//        return users.get();
+        frontendService.getUserList(data -> {
+            logger.info("Список пользователей: {}", data);
+            simpMessagingTemplate.convertAndSend("/topic/user/list", data);
+        });
     }
 
     @MessageMapping("/user/save")
-    @SendTo("/topic/user/save")
-    public ResultMessage saveUser(User user) {
+    public void saveUser(User user) {
         logger.info("User for save {}",user);
         try {
-            CountDownLatch waitLatch = new CountDownLatch(1);
-            AtomicBoolean savedUser = new AtomicBoolean(false);
-//            frontendService.createOrUpdate(user, data -> {
-//                logger.info("Saved user {}",data);
-//                savedUser.set(data.getId()>0);
-//                waitLatch.countDown();
-//            });
-            waitLatch.await();
-            if (savedUser.get()) return new ResultMessage("OK");
-            else return new ResultMessage("User is not saved");
-        } catch (InterruptedException e) {
-            logger.error(e.getMessage(), e);
-            return new ResultMessage(e.getMessage());
+            frontendService.createOrUpdate(user, data -> {
+                logger.info("Saved user {}",data);
+                if (data.getId()>0) {
+                    logger.info("User saved successeful");
+                    simpMessagingTemplate.convertAndSend("/topic/user/save", new ResultMessage("OK"));
+                } else {
+                    logger.info("User saved successeful");
+                    simpMessagingTemplate.convertAndSend("/topic/user/save", new ResultMessage("User is not saved")); }
+            });
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ResultMessage(e.getMessage());
+            simpMessagingTemplate.convertAndSend("/topic/user/save", new ResultMessage(e.getMessage()));
         }
     }
 
     @MessageMapping("/user/edit.{userID}")
-    @SendTo("/topic/user/edit.{userID}")
-    public User getUserEditPage(@DestinationVariable String userID) throws InterruptedException {
+    public void getUserEditPage(@DestinationVariable String userID) throws InterruptedException {
         logger.info("Edit user id = "+userID);
-        CountDownLatch waitLatch = new CountDownLatch(1);
-        AtomicReference<User> user = new AtomicReference<User>();
-//        frontendService.load(Long.parseLong(userID), data -> {
-//            logger.info("Пользователь для редактирования {}", data);
-//            user.set(data);
-//            waitLatch.countDown();
-//        });
-        waitLatch.await();
-        return user.get();
+        frontendService.load(Long.parseLong(userID), data -> {
+            logger.info("Пользователь для редактирования {}", data);
+            simpMessagingTemplate.convertAndSend("/topic/user/edit."+userID,data);
+        });
     }
 
 }

@@ -1,17 +1,35 @@
 package ru.otus.entities;
 
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
+@Entity
+@Table(name = "users")
+@TableGenerator(name = "true")
+public class User  implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @NotNull
+    @Column(name = "name")
     private String name;
+    @Column(name = "login")
     private String login;
+    @Column(name = "password")
     private String password;
+    @Column(name = "age")
     private int age;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private AddressDataSet address;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PhoneDataSet> phones;
 
     public User() {

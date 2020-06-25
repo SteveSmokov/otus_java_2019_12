@@ -25,6 +25,7 @@ public class GetAuthUserDataResponseHandler implements RequestHandler {
         logger.info("new message:{}", msg);
         try {
             User userData = Serializers.deserialize(msg.getPayload(), User.class);
+            logger.info("User data:{}", userData);
             UUID sourceMessageId = msg.getSourceMessageId().orElseThrow(() -> new RuntimeException("Not found sourceMsg for message:" + msg.getId()));
             frontendService.takeConsumer(sourceMessageId, User.class).ifPresent(consumer -> consumer.accept(userData));
 

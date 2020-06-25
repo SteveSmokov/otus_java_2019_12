@@ -90,7 +90,7 @@ public class ServerSocketManagerImpl implements ServerSocketManager {
                     }
                 } else {
                     Message message = new Gson().fromJson(inputLine, Message.class);
-                    logger.info("messageTransport: {}", message);
+                    logger.info("Message: {}", message);
 
                     if (socketClientDBService.containsKey(message.getTo())) {
                         messageSystem.addDBMessage(message);

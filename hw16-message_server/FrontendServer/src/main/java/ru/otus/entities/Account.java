@@ -1,10 +1,19 @@
 package ru.otus.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.*;
 
-public class Account {
+@Entity
+@Table(name = "accounts")
+public class Account implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "no")
     private long no;
+    @Column(name = "type")
     private String type;
+    @Column(name = "rest")
     private long rest;
 
     public Account() {

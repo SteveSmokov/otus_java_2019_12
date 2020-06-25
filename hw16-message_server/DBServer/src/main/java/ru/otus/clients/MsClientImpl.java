@@ -58,12 +58,6 @@ public class MsClientImpl implements MsClient {
     }
 
     @Override
-    public <T> Message produceMessage(String to, T data, MessageType msgType) {
-        return new Message(name, to, null, msgType.getValue(), Serializers.serialize(data));
-    }
-
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

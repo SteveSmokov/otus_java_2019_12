@@ -1,6 +1,0 @@
-SocketPort 5050
-ClientsCount: 2
-StartDelaySec: 5
-
-DBService1StartCommand: java -jar java -jar ./hw16-message_server/DBServer/target/DBServer-1.0-SNAPSHOT.jar --host localhost -port 5050 -servicename BACKEND_1
-DBService2StartCommand: java -jar java -jar ./hw16-message_server/DBServer/target/DBServer-1.0-SNAPSHOT.jar --host localhost -port 5050 -servicename BACKEND_2

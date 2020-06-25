@@ -28,7 +28,9 @@ public class FrontendServiceMSClientImpl implements FrontendServiceMSClient {
 
     @Override
     public void getUserByLogin(String login, Consumer<User> dataConsumer) {
+        logger.info("Login user");
         Message outMsg = msClient.produceMessage(databaseServiceClientName, login, MessageType.AUTH_USER_DATA);
+        logger.info("Login message {}", outMsg);
         consumerMap.put(outMsg.getId(), dataConsumer);
         msClient.sendMessage(outMsg);
     }
