@@ -33,7 +33,7 @@
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <jdk.junit>4.13-rc-2</jdk.junit>
+        <jdk.junit>4.13.1</jdk.junit>
         <jre.guava>28.1-jre</jre.guava>
     </properties>
 
