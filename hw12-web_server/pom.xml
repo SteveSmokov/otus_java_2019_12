@@ -20,7 +20,7 @@
         <mockito-junit-jupiter.version>3.1.0</mockito-junit-jupiter.version>
         <asertj-core.version>3.13.2</asertj-core.version>
         <reflections.version>0.9.11</reflections.version>
-        <jetty.version>9.4.34.v20201102</jetty.version>
+        <jetty.version>11.0.1</jetty.version>
         <freemarker.version>2.3.28</freemarker.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
     </properties>
