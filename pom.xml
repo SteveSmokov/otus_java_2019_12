@@ -34,7 +34,7 @@
         <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <jdk.junit>4.13-rc-2</jdk.junit>
-        <jre.guava>28.1-jre</jre.guava>
+        <jre.guava>29.0-jre</jre.guava>
     </properties>
 
     <dependencyManagement>
