@@ -16,7 +16,7 @@
     <properties>
         <spring.version>5.2.2.RELEASE</spring.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
-        <hibernate-core.version>5.4.1.Final</hibernate-core.version>
+        <hibernate-core.version>5.4.24.Final</hibernate-core.version>
         <reflections.version>0.9.11</reflections.version>
         <h2.version>1.4.200</h2.version>
     </properties>
